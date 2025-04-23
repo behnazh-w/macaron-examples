@@ -1,0 +1,32 @@
+# We run checks on pushing to the specified branches.
+
+name: Check supply chain security issues
+on:
+  push:
+    branches:
+    - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+
+jobs:
+  run_macaron:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Install Macaron Docker container
+      env:
+        TAG: v0.15.0
+      shell: bash
+      run: |
+        curl -O https://raw.githubusercontent.com/oracle/macaron/"$TAG"/scripts/release_scripts/run_macaron.sh
+        chmod +x run_macaron.sh
+        ./run_macaron.sh --version
+
+    - name: Run Macaron
+      shell: bash
+      run: |
+        ./run_macaron.sh analyze https://github.com/oracle/macaron
