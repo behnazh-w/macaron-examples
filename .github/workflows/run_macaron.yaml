@@ -29,4 +29,4 @@ jobs:
     - name: Run Macaron
       shell: bash
       run: |
-        ./run_macaron.sh analyze https://github.com/oracle/macaron
+        ./run_macaron.sh analyze -rp https://github.com/oracle/macaron
