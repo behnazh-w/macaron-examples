@@ -1,0 +1,42 @@
+# This workflow checks the pull requests for this repository.
+
+name: Check change set
+on:
+  pull_request:
+    branches:
+    - '*'
+    types:
+    - opened
+    - reopened
+    - synchronize
+    - converted_to_draft
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Check pull requests
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        python: ['3.13']
+    steps:
+
+    - name: Check out repository
+      uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938 # v4.2.0
+      with:
+        fetch-depth: 0
+
+    - name: Set up Python
+      uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38 # v5.4.0
+      with:
+        python-version: ${{ matrix.python }}
+
+    - name: Install and run pre-commit hooks
+      shell: bash
+      run: |
+        pip install pre-commit
+        pre-commit install
+        pre-commit run --all-files
