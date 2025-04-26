@@ -17,6 +17,11 @@ jobs:
 
     steps:
 
+    - name: Check out repository
+      uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938 # v4.2.0
+      with:
+        fetch-depth: 0
+
     - name: Install Macaron Docker container
       env:
         TAG: v0.16.0
@@ -25,11 +30,6 @@ jobs:
         curl -O https://raw.githubusercontent.com/oracle/macaron/"$TAG"/scripts/release_scripts/run_macaron.sh
         chmod +x run_macaron.sh
         ./run_macaron.sh --version
-
-    - name: Check out repository
-      uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938 # v4.2.0
-      with:
-        fetch-depth: 0
 
     - name: Run Macaron
       env:
