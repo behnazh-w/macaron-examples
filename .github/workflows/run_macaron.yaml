@@ -19,18 +19,24 @@ jobs:
 
     - name: Install Macaron Docker container
       env:
-        TAG: v0.15.0
+        TAG: v0.16.0
       shell: bash
       run: |
         curl -O https://raw.githubusercontent.com/oracle/macaron/"$TAG"/scripts/release_scripts/run_macaron.sh
         chmod +x run_macaron.sh
         ./run_macaron.sh --version
 
+    - name: Check out repository
+      uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938 # v4.2.0
+      with:
+        fetch-depth: 0
+
     - name: Run Macaron
       env:
         # This environment variable will be picked up by run_macaron.sh.
-        MACARON_IMAGE_TAG: v0.15.0
+        MACARON_IMAGE_TAG: v0.16.0
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       shell: bash
       run: |
         ./run_macaron.sh analyze -rp https://github.com/oracle/macaron
+        ./run_macaron.sh verify-policy --database output/macaron.db --file ./policies/github_actions_check_policy.dl

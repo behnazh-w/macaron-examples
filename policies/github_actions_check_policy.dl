@@ -1,0 +1,7 @@
+#include "prelude.dl"
+Policy("github_action_check_policy", component_id, "Detect Vulnerable GitHub Actions") :-
+    check_passed(component_id, "mcn_githubactions_vulnerabilities_1").
+
+apply_policy_to("github_action_check_policy", component_id) :-
+    is_component(component_id, purl),
+    match("pkg:github.com/oracle/macaron@.*", purl).
