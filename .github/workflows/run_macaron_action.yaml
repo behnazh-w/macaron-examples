@@ -31,3 +31,4 @@ jobs:
         policy_file: check-github-actions
         policy_purl: pkg:github.com/behnazh-w/macaron-examples@.*
         upload_attestation: true
+        subject_path: vsa.intoto.jsonl
