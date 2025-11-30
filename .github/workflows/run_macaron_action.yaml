@@ -27,6 +27,7 @@ jobs:
     - name: Run Macaron action
       uses: behnazh/test-macaron-action@v2.1.0
       with:
+        repo_path: ./
         policy_file: check-github-actions
         policy_purl: pkg:github.com/behnazh-w/macaron-examples@.*
         upload_attestation: true
