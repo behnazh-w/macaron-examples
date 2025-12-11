@@ -1,4 +1,4 @@
-# We run checks on pushing to the specified branches.
+# We run checks on pushing to the specified branches
 
 name: Check supply chain security issues
 on:
