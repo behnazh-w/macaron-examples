@@ -30,5 +30,6 @@ jobs:
         repo_path: ./
         policy_file: check-github-actions
         policy_purl: pkg:github.com/behnazh-w/macaron-examples@.*
+        output_dir: macaron-output
         upload_attestation: true
-        subject_path: ./output/vsa.intoto.jsonl
+        subject_path: ./macaron-output/vsa.intoto.jsonl
